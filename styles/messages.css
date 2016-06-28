@@ -36,6 +36,11 @@
   margin: 0.5em 0;
 }
 
+.chat-item .bubble img {
+  max-width: 100%;
+  height: auto;
+}
+
 .bubble {
   padding: 7px 10px;
   color: #333;
@@ -44,6 +49,7 @@
   position: relative;
   max-width: 420px;
   min-width: 80px;
+  margin: 0 5px;
 }
 
 .bubble::before {
