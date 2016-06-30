@@ -8,14 +8,14 @@
   height: 100%;
   position: absolute;
   box-sizing: border-box;
-  containment: layout;
+  contain: layout;
 }
 
 .chat-item {
   display: flex;
   padding: 10px 0;
   width: 100%;
-  containment: layout;
+  contain: layout;
 }
 
 .avatar {
