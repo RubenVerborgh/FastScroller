@@ -361,7 +361,8 @@ scope.InfiniteScroller.prototype = {
       return;
     this.requestInProgress_ = true;
     var lastItem = this.items_[this.loadedItems_ - 1];
-    this.source_.fetch(itemsNeeded).then(this.addContent.bind(this));
+    if (this.source_.fetch)
+      this.source_.fetch(itemsNeeded).then(this.addContent.bind(this));
   },
 
   /**

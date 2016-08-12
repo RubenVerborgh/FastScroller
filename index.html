@@ -76,6 +76,7 @@ limitations under the License.
   <script src="scripts/messages.js"></script>
   <script>
 var INIT_TIME = new Date().getTime();
+var nextItem = 0;
 
 /**
  * Constructs a random item with a given id.
@@ -116,25 +117,9 @@ function ContentSource() {
   // Collect template nodes to be cloned when needed.
   this.tombstone_ = document.querySelector("#templates > .chat-item.tombstone");
   this.messageTemplate_ = document.querySelector("#templates > .chat-item:not(.tombstone)");
-  this.nextItem_ = 0;
 }
 
 ContentSource.prototype = {
-  fetch: function(count) {
-    // Fetch at least 30 or count more objects for display.
-    count = Math.max(30, count);
-    return new Promise(function(resolve, reject) {
-      // Assume 50 ms per item.
-      setTimeout(function() {
-        var items = [];
-        for (var i = 0; i < Math.abs(count); i++) {
-          items[i] = getItem(this.nextItem_++);
-        }
-        resolve(Promise.all(items));
-      }.bind(this), 1000 /* Simulated 1 second round trip time */ );
-    }.bind(this));
-  },
-
   createTombstone: function() {
     return this.tombstone_.cloneNode(true);
   },
@@ -181,6 +166,13 @@ document.addEventListener('DOMContentLoaded', function() {
       document.querySelector('#chat-timeline'),
       new ContentSource()
     );
+  (function generateNext() {
+    var items = [];
+    for (var i = 0; i < 5; i++)
+      items[i] = getItem(nextItem++);
+    Promise.all(items).then(scroller.addContent.bind(scroller));
+    setTimeout(generateNext, 1000);
+  })();
 
   var stats = new Stats();
   var domPanel = new Stats.Panel('DOM Nodes', '#0ff', '#002');
