@@ -56,14 +56,9 @@ scope.InfiniteScrollerSource.prototype = {
  *     displayed in the infinite scroll region.
  */
 scope.InfiniteScroller = function(scroller, source) {
-  this.anchorItem = {index: 0, offset: 0};
-  this.firstAttachedItem_ = 0;
-  this.lastAttachedItem_ = 0;
-  this.anchorScrollTop = 0;
+  this.reset_();
   this.scroller_ = scroller;
   this.source_ = source;
-  this.items_ = [];
-  this.loadedItems_ = 0;
   this.requestInProgress_ = false;
   this.scroller_.addEventListener('scroll', this.onScroll_.bind(this));
   window.addEventListener('resize', this.onResize_.bind(this));
@@ -84,6 +79,18 @@ scope.InfiniteScroller = function(scroller, source) {
 }
 
 scope.InfiniteScroller.prototype = {
+  /**
+   * Resets the scroller to its initial state
+   */
+  reset_: function() {
+    this.anchorItem = {index: 0, offset: 0};
+    this.firstAttachedItem_ = 0;
+    this.lastAttachedItem_ = 0;
+    this.anchorScrollTop = 0;
+    this.items_ = [];
+    this.loadedItems_ = 0;
+    this.scrollRunwayEnd_ = 0;
+  },
 
   /**
    * Called when the browser window resizes to adapt to new scroller bounds and
@@ -282,6 +289,21 @@ scope.InfiniteScroller.prototype = {
       }
     }
     this.attachContent();
-  }
+  },
+
+  /**
+   * Removes all items from the list.
+   */
+  removeAll: function() {
+    // Remove all nodes
+    for (var i = 0; i < this.items_.length; i++) {
+      if (this.items_[i].node)
+        this.scroller_.removeChild(this.items_[i].node);
+    }
+    this.reset_();
+    // Scroll to top
+    this.scroller_.scrollTop = 0;
+    this.onScroll_();
+  },
 }
 })(self);

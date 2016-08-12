@@ -92,3 +92,11 @@
 .invisible {
   display: none;
 }
+
+fieldset {
+  position: absolute;
+  z-index: 500;
+  right: 0;
+  background: white;
+  border: 2px solid black;
+}

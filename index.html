@@ -57,6 +57,9 @@ limitations under the License.
       </div>
     </li>
   </div>
+  <fieldset>
+    <button id="clear">Clear</button>
+  </fieldset>
   <ul id="chat-timeline">
   </ul>
   <script src="es6-promise.js"></script>
@@ -174,6 +177,10 @@ document.addEventListener('DOMContentLoaded', function() {
   }, TIMEOUT);
 
 
+});
+
+document.querySelector('#clear').addEventListener('click', function() {
+  window.scroller.removeAll();
 });
   </script>
 </body>
