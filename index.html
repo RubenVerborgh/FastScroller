@@ -56,17 +56,6 @@ limitations under the License.
         </div>
       </div>
     </li>
-    <li class="chat-item tombstone" data-id="{{id}}">
-      <img class="avatar" width="48" height="48" src="images/unknown.jpg">
-      <div class="bubble">
-        <p></p>
-        <p></p>
-        <p></p>
-        <div class="meta">
-          <time class="posted-date"></time>
-        </div>
-      </div>
-    </li>
   </div>
   <ul id="chat-timeline">
   </ul>
@@ -115,15 +104,10 @@ function getItem(id) {
 
 function ContentSource() {
   // Collect template nodes to be cloned when needed.
-  this.tombstone_ = document.querySelector("#templates > .chat-item.tombstone");
-  this.messageTemplate_ = document.querySelector("#templates > .chat-item:not(.tombstone)");
+  this.messageTemplate_ = document.querySelector("#templates > .chat-item");
 }
 
 ContentSource.prototype = {
-  createTombstone: function() {
-    return this.tombstone_.cloneNode(true);
-  },
-
   render: function(item, div) {
     // TODO: Different style?
     div = div || this.messageTemplate_.cloneNode(true);
