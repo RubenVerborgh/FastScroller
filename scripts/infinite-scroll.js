@@ -205,8 +205,7 @@ scope.InfiniteScroller.prototype = {
 
     // Get the height of all nodes which haven't been measured yet.
     for (i = first; i < last; i++) {
-      // Only cache the height if we have the real contents, not a placeholder.
-      if (this.items_[i].data && !this.items_[i].height) {
+      if (!this.items_[i].height) {
         this.items_[i].height = this.items_[i].node.offsetHeight;
       }
     }
@@ -266,18 +265,6 @@ scope.InfiniteScroller.prototype = {
   },
 
   /**
-   * Adds an item to the items list.
-   */
-  addItem_: function() {
-    this.items_.push({
-      'data': null,
-      'node': null,
-      'height': 0,
-      'top': 0,
-    })
-  },
-
-  /**
    * Adds the given array of items to the items list and then calls
    * attachContent to update the displayed content.
    * @param {Array<Object>} items The array of items to be added to the infinite
@@ -287,9 +274,12 @@ scope.InfiniteScroller.prototype = {
     this.requestInProgress_ = false;
     var startIndex = this.items_.length;
     for (var i = 0; i < items.length; i++) {
-      if (this.items_.length <= this.loadedItems_)
-        this.addItem_();
-      this.items_[this.loadedItems_++].data = items[i];
+      this.items_[this.loadedItems_++] = {
+        'data': items[i],
+        'node': null,
+        'height': 0,
+        'top': 0,
+      }
     }
     this.attachContent();
   }
