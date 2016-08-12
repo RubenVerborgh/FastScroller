@@ -23,9 +23,6 @@ var RUNWAY_ITEMS = 50;
 // Number of items to instantiate beyond current view in the opposite direction.
 var RUNWAY_ITEMS_OPPOSITE = 10;
 
-// The number of pixels of additional length to allow scrolling to.
-var SCROLL_RUNWAY = 2000;
-
 scope.InfiniteScrollerSource = function() {
 }
 
@@ -244,7 +241,7 @@ scope.InfiniteScroller.prototype = {
       curPos += this.items_[i].height || this.tombstoneSize_;
     }
 
-    this.scrollRunwayEnd_ = Math.max(this.scrollRunwayEnd_, curPos + SCROLL_RUNWAY)
+    this.scrollRunwayEnd_ = Math.max(this.scrollRunwayEnd_, curPos);
     this.scrollRunway_.style.transform = 'translate(0, ' + this.scrollRunwayEnd_ + 'px)';
     this.scroller_.scrollTop = this.anchorScrollTop;
 
