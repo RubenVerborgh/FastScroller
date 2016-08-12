@@ -93,7 +93,7 @@ scope.InfiniteScroller.prototype = {
     // Reset the cached size of items in the scroller as they may no longer be
     // correct after the item content undergoes layout.
     for (var i = 0; i < this.items_.length; i++) {
-      this.items_[i].height = this.items_[i].width = 0;
+      this.items_[i].height = 0;
     }
     this.onScroll_();
   },
@@ -208,7 +208,6 @@ scope.InfiniteScroller.prototype = {
       // Only cache the height if we have the real contents, not a placeholder.
       if (this.items_[i].data && !this.items_[i].height) {
         this.items_[i].height = this.items_[i].node.offsetHeight;
-        this.items_[i].width = this.items_[i].node.offsetWidth;
       }
     }
 
@@ -274,7 +273,6 @@ scope.InfiniteScroller.prototype = {
       'data': null,
       'node': null,
       'height': 0,
-      'width': 0,
       'top': 0,
     })
   },
