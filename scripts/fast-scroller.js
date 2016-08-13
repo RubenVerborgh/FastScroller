@@ -60,6 +60,8 @@ scope.FastScrollerSource.prototype = {
  */
 scope.FastScroller = function(scroller, source) {
   // Parse arguments
+  if (scroller.length && scroller[0])
+    scroller = scroller[0];
   if (!source.render && typeof source === 'function')
     source = { render: source };
 
@@ -206,6 +208,8 @@ scope.FastScroller.prototype = {
     for (i = first; i < last; i++) {
       if (!this.items_[i].node) {
         var node = this.source_.render(this.items_[i].data, unusedNodes.pop());
+        if (node.length && node[0])
+          node = node[0];
         // Maybe don't do this if it's already attached?
         node.style.position = 'absolute';
         this.items_[i].top = -1;
