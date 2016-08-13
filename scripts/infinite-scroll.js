@@ -71,6 +71,7 @@ scope.InfiniteScroller = function(scroller, source) {
   // Create an element to force the scroller to allow scrolling to a certain
   // point.
   this.scrollRunway_ = document.createElement('div');
+  this.scrollRunway_.className = 'scrollRunway';
   // Internet explorer seems to require some text in this div in order to
   // ensure that it can be scrolled to.
   this.scrollRunway_.textContent = ' ';
