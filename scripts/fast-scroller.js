@@ -23,10 +23,10 @@ var RUNWAY_ITEMS = 50;
 // Number of items to instantiate beyond current view in the opposite direction.
 var RUNWAY_ITEMS_OPPOSITE = 10;
 
-scope.InfiniteScrollerSource = function() {
+scope.FastScrollerSource = function() {
 }
 
-scope.InfiniteScrollerSource.prototype = {
+scope.FastScrollerSource.prototype = {
   /**
    * Fetch more items from the data source. This should try to fetch at least
    * count items but may fetch more as desired. Subsequent calls to fetch should
@@ -52,10 +52,10 @@ scope.InfiniteScrollerSource.prototype = {
  * Construct an infinite scroller.
  * @param {Element} scroller The scrollable element to use as the infinite
  *     scroll region.
- * @param {InfiniteScrollerSource|Function} source A renderer and, optionally,
+ * @param {FastScrollerSource|Function} source A renderer and, optionally,
            provider of the content to be displayed in the scroll region.
  */
-scope.InfiniteScroller = function(scroller, source) {
+scope.FastScroller = function(scroller, source) {
   // Parse arguments
   if (!source.render && typeof source === 'function')
     source = { render: source };
@@ -84,7 +84,7 @@ scope.InfiniteScroller = function(scroller, source) {
   this.onResize_();
 }
 
-scope.InfiniteScroller.prototype = {
+scope.FastScroller.prototype = {
   /**
    * Resets the scroller to its initial state
    */
