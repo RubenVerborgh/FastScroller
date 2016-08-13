@@ -155,10 +155,10 @@ document.addEventListener('DOMContentLoaded', function() {
     );
   (function generateNext() {
     var items = [];
-    for (var i = 0; i < 5; i++)
+    for (var i = 0; i < 2; i++)
       items[i] = getItem(nextItem++);
     Promise.all(items).then(scroller.addContent.bind(scroller));
-    setTimeout(generateNext, 1000);
+    setTimeout(generateNext, 100);
   })();
 
   var stats = new Stats();
