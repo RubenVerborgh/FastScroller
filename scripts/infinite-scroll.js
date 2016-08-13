@@ -52,10 +52,15 @@ scope.InfiniteScrollerSource.prototype = {
  * Construct an infinite scroller.
  * @param {Element} scroller The scrollable element to use as the infinite
  *     scroll region.
- * @param {InfiniteScrollerSource} source A provider of the content to be
- *     displayed in the infinite scroll region.
+ * @param {InfiniteScrollerSource|Function} source A renderer and, optionally,
+           provider of the content to be displayed in the scroll region.
  */
 scope.InfiniteScroller = function(scroller, source) {
+  // Parse arguments
+  if (!source.render && typeof source === 'function')
+    source = { render: source };
+
+  // Initialize scroller
   this.reset_();
   this.scroller_ = scroller;
   this.source_ = source;
